@@ -1,0 +1,17 @@
+if(!message.author.id == "582374885595021300") return message.reply('Espertinho n tem aq n')
+if(args.length === 0) {
+      message.channel.send("Sem prefixo alocado para alterar")
+} else if (args.length === 1) {
+      let nPrefix = args[0]
+      let Discord = require('discord.js')
+      let embed = new Discord.RichEmbed()
+      .addField('**O meu prefixo foi alterado para:**', `\`\`\` ${nPrefix} \`\`\``, true)
+      .setColor('#0062ff')
+      .setTimestamp()
+      .setFooter(message.author.username)
+      require("firebase").database().ref('diretorio').update({ // Conecta-se a database
+            'prefix' : nPrefix
+      }).then(() => {
+            message.channel.send(embed)
+      })
+}
